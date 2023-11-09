@@ -22,4 +22,12 @@ public class OrderController : ControllerBase
             return BadRequest(ex.Message);
         }
     }
+    // [HttpGet] 
+    // public ActionResult GetOrder()
+    // {
+    //     return Ok(new{
+    //         Nome = "Mulher",
+    //         DataNasc = DateTime.Now
+    //     });
+    // }
 }

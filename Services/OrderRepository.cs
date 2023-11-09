@@ -68,17 +68,13 @@ public class OrderRepository : IOrderRepository
         if (selectedProduct is null)
             throw new Exception("Product do not exist.");
 
-        var item = new ClientOrderItem();
-        item.ClientOrderId = orderId;
-        item.ProductId = productId;
-
-        ctx.Add(item);
-        await ctx.SaveChangesAsync();
+        
     }
 
-    public Task RemoveItem(int orderId, int productId)
+    public async Task RemoveItem(int orderId, int productId)
     {
-        throw new NotImplementedException();
+        var order = await get(productId);
+
     }
 
     public Task FinishOrder(int orderId)
@@ -99,5 +95,18 @@ public class OrderRepository : IOrderRepository
             select order;
 
         return await orders.FirstOrDefaultAsync();
+    }
+     private async Task<ClientOrder> getProduct(int productId)
+    {
+        var products =
+            from product in ctx.ClientOrderItems
+            join produto in ctx.Products
+                on product.ProductId equals produto.Id
+            select new
+            {
+                cliente = produto.Id
+            };
+
+        return products.cliente;
     }
 }
